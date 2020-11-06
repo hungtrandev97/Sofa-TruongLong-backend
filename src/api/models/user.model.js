@@ -110,6 +110,13 @@ userSchema.method({
  */
 userSchema.statics = {
 
+  // this.aggregate([
+  //   { $match: { status: "A" } },
+  //  { $lookup: {
+
+  //   }
+  // ]),
+
   roles,
 
   /**
