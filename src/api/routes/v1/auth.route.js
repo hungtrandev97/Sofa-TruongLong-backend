@@ -71,8 +71,8 @@ router.route('/register')
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  * @apiError (Unauthorized 401)  Unauthorized     Incorrect email or password
  */
-router.route('/login')
-  .post(validate(login), controller.login);
+router.route('/loginCustomer')
+  .post(controller.login);
 
 
 /**

@@ -1,69 +1,67 @@
 const mongoose = require('mongoose');
 const httpStatus = require('http-status');
+const { omitBy, isNil } = require('lodash');
 const bcrypt = require('bcryptjs');
 const moment = require('moment-timezone');
 const jwt = require('jwt-simple');
 const uuidv4 = require('uuid/v4');
+const APIError = require('../utils/APIError');
 const { env, jwtSecret, jwtExpirationInterval } = require('../../config/vars');
 
-const roles = [1, 2];
-const customerSchema = new mongoose.Schema({
-  userName: {
-    type: String,
-    required: true,
-    trim: true,
-    maxlength: 128,
-    index: true
-  },
-  password: {
-    type: String,
-    maxlength: 128,
-    index: true,
-    trim: true,
-    required: true
-  },
+/**
+* User Roles
+*/
+const roles = ['user', 'admin'];
+
+/**
+ * User Schema
+ * @private
+ */
+const userSchema = new mongoose.Schema({
   email: {
     type: String,
     match: /^\S+@\S+\.\S+$/,
     required: true,
     unique: true,
     trim: true,
-    lowercase: true
+    lowercase: true,
   },
-  gender: {
-    type: Number,
-    required: true,
-    trim: true,
-    maxlength: 3
-  },
-  address: {
+  password: {
     type: String,
     required: true,
+    minlength: 6,
+    maxlength: 128,
   },
-  numberPhone: {
-    type: Number,
-    required: true,
-    trim: true
-  },
-  numberPoint: {
-    type: Number,
-    trim: true,
+  name: {
+    type: String,
+    maxlength: 128,
     index: true,
+    trim: true,
   },
-  status: {
-    type: Number,
-    maxlength: 2
+  services: {
+    facebook: String,
+    google: String,
   },
   role: {
-    type: Number,
+    type: String,
     enum: roles,
-    default: 2,
+    default: 'user',
   },
-},{
+  picture: {
+    type: String,
+    trim: true,
+  },
+}, {
   timestamps: true,
 });
 
-customerSchema.pre('save', async function save(next) {
+/**
+ * Add your
+ * - pre-save hooks
+ * - validations
+ * - virtuals
+ */
+userSchema.pre('save', async function save(next) {
   try {
     if (!this.isModified('password')) return next();
 
@@ -81,10 +79,10 @@ customerSchema.pre('save', async function save(next) {
 /**
  * Methods
  */
-customerSchema.method({
+userSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'userName', 'password', 'email', 'gender', 'address', 'numberPhone', 'numberPoint', 'status', 'role' ];
+    const fields = ['id', 'name', 'email', 'picture', 'role', 'createdAt'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
@@ -110,7 +108,14 @@ customerSchema.method({
 /**
  * Statics
  */
-customerSchema.statics = {
+userSchema.statics = {
+
+  // this.aggregate([
+  //   { $match: { status: "A" } },
+  //  { $lookup: {
+
+  //   }
+  // ]),
 
   roles,
 
@@ -147,9 +152,10 @@ customerSchema.statics = {
    * @returns {Promise<User, APIError>}
    */
   async findAndGenerateToken(options) {
-    const { userName, password } = options;
-    if (!userName) throw new APIError({ message: 'An userName is required to generate a token' });
-    const user = await this.findOne({ userName }).exec();
+    const { email, password, refreshObject } = options;
+    if (!email) throw new APIError({ message: 'An email is required to generate a token' });
+
+    const user = await this.findOne({ email }).exec();
     const err = {
       status: httpStatus.UNAUTHORIZED,
       isPublic: true,
@@ -158,8 +164,8 @@ customerSchema.statics = {
       if (user && await user.passwordMatches(password)) {
         return { user, accessToken: user.token() };
       }
-      err.message = 'Incorrect userName or password';
-    } else if (refreshObject && refreshObject.userName === userName) {
+      err.message = 'Incorrect email or password';
+    } else if (refreshObject && refreshObject.userEmail === email) {
       if (moment(refreshObject.expires).isBefore()) {
         err.message = 'Invalid refresh token.';
       } else {
@@ -231,8 +237,7 @@ customerSchema.statics = {
   },
 };
 
-
 /**
- * @typedef Customer
+ * @typedef User
  */
-module.exports = mongoose.model('Customer', customerSchema)
+module.exports = mongoose.model('User', userSchema);

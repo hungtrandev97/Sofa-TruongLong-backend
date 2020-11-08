@@ -12,9 +12,9 @@ const emailProvider = require('../services/emails/emailProvider');
  * Returns a formated object with tokens
  * @private
  */
-function generateTokenResponse(user, accessToken) {
+function generateTokenResponse(Customer, accessToken) {
   const tokenType = 'Bearer';
-  const refreshToken = RefreshToken.generate(user).token;
+  const refreshToken = RefreshToken.generate(Customer).token;
   const expiresIn = moment().add(jwtExpirationInterval, 'minutes');
   return {
     tokenType,
@@ -45,10 +45,11 @@ exports.register = async (req, res, next) => {
  * Returns jwt token if valid username and password is provided
  * @public
  */
-exports.login = async (req, res, next) => {
+exports.login =  async (req, res, next) => {
+  data= { userName: 'admin', password: '12345678' }
   try {
-    const { user, accessToken } = await User.findAndGenerateToken(req.body);
-    const token = generateTokenResponse(user, accessToken);
+    const {user} = await User.findAndGenerateToken(data);
+    const token = generateTokenResponse(user, user.token());
     const userTransformed = user.transform();
     return res.json({ token, user: userTransformed });
   } catch (error) {
@@ -95,7 +96,7 @@ exports.refresh = async (req, res, next) => {
 exports.sendPasswordReset = async (req, res, next) => {
   try {
     const { email } = req.body;
-    const user = await User.findOne({ email }).exec();
+    const user = await Customer.findOne({ email }).exec();
 
     if (user) {
       const passwordResetObj = await PasswordResetToken.generate(user);
@@ -133,7 +134,7 @@ exports.resetPassword = async (req, res, next) => {
       throw new APIError(err);
     }
 
-    const user = await User.findOne({ email: resetTokenObject.userEmail }).exec();
+    const user = await Customer.findOne({ email: resetTokenObject.userEmail }).exec();
     user.password = password;
     await user.save();
     emailProvider.sendPasswordChangeEmail(user);
