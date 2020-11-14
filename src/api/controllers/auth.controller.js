@@ -31,11 +31,17 @@ function generateTokenResponse(Customer, accessToken) {
 exports.register = async (req, res, next) => {
   try {
     const userData = omit(req.body);
-    const user = await new User(userData).save();
-    const userTransformed = user.transform();
-    const token = generateTokenResponse(user, user.token());
-    res.status(httpStatus.CREATED);
-    return res.json({ token, user: userTransformed });
+    const checkUser = await User.findOne({'email' : req.body.email, 'userName' : req.body.userName})
+    if(checkUser === null) {
+      user = new User(userData).save();
+      userTransformed = user.transform();
+      const token = generateTokenResponse(user, user.token());
+      res.status(200);
+      return res.json({ token, user: userTransformed });
+    }else{
+      res.status(250);
+      return res.json({message: 'Email hoạc UserName đã tồn tại'});
+    }
   } catch (error) {
     return next(error);
   }
