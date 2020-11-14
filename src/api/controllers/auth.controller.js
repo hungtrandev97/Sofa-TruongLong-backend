@@ -46,9 +46,8 @@ exports.register = async (req, res, next) => {
  * @public
  */
 exports.login =  async (req, res, next) => {
-  data= { userName: 'admin', password: '12345678' }
   try {
-    const {user} = await User.findAndGenerateToken(data);
+    const {user} = await User.findAndGenerateToken(req.body);
     const token = generateTokenResponse(user, user.token());
     const userTransformed = user.transform();
     return res.json({ token, user: userTransformed });
