@@ -11,4 +11,18 @@ const categorySchema = new mongoose.Schema({
   }
 })
 
+/**
+ * Methods
+ */
+categorySchema.method({
+  transform() {
+    const transformed = {};
+    const fields = ['id', 'category_title', 'category_icon'];
+    fields.forEach((field) => {
+      transformed[field] = this[field];
+    });
+    return transformed;
+  }
+})
+
 module.exports = mongoose.model('Category', categorySchema)
