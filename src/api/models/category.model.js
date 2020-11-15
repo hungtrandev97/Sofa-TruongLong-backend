@@ -5,10 +5,10 @@ const categorySchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  category_icon: {
-    type: String,
-    trim: true
-  }
+  date_create: {
+    type: Date,
+    default: Date.now
+  },
 })
 
 /**
@@ -17,7 +17,7 @@ const categorySchema = new mongoose.Schema({
 categorySchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'category_title', 'category_icon'];
+    const fields = ['id', 'category_title', 'date_create'];
     fields.forEach((field) => {
       transformed[field] = this[field];
     });

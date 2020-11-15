@@ -7,9 +7,18 @@ module.exports = {
     }
   },
 
-  getAllCategory: {
+  EditCategory: {
+    query: {
+      id_category: Joi.string().required()
+    },
+    body: {
+      category_title: Joi.string(),
+    }
+  },
+  RemoveCategory: {
     query: {
       id_category: Joi.string().required()
     }
   }
+
 }

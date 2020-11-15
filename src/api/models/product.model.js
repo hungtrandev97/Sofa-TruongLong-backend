@@ -1,9 +1,9 @@
-const { bool, string } = require('joi');
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 
 const productSchema = new mongoose.Schema({
-  _category:{type:Schema.Types.ObjectId,ref:'Infomation',autopopulate: true},
+  _category:{type:Schema.Types.ObjectId,ref:'Category',autopopulate: true},
   _manager: {type:mongoose.Schema.Types.ObjectId,ref:'Customer'},
   product_title: {
     type: String,
