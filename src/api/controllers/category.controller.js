@@ -54,9 +54,8 @@ exports.EditCategory = async (req, res, next) => {
 
 exports.RemoveCategory = async (req, res, next) => {
   try {
-    console.log(req.query.id_category)
     const checkProduct = await Product.find({_category: req.query.id_category});
-    if(checkProduct === "") {
+    if(checkProduct) {
       const removeCategory = await Category.findByIdAndRemove({_id: req.query.id_category})
       if(removeCategory) {
         const getAllCategory = await Category.find();
