@@ -6,16 +6,16 @@ exports.CreateCategory = async (req, res, next) => {
   try {
     const categoryData = omit(req.body);
     const checkCategory = await Category.findOne({'category_title' : req.body.category_title})
-    if(checkCategory) {
-      const categorySave = await new Category(categoryData).save();
-      if(categorySave) {
-        const listCategory = await new Category.find();
-        const categoryTransformed = listCategory.transform();
+    if(checkCategory == null) {
+      const category = await new Category(categoryData).save();
+      if(category){
+        const getAllCategory = await Category.find();
+        const lenghtData = getAllCategory.length
         res.status(200);
-        return res.json({ data: categoryTransformed });
+        return res.json({lenghtData: lenghtData ,data: getAllCategory });
       }else{
         res.status(400);
-        return res.json({message: 'Tạo danh mục không thành công'});
+      return res.json({message: 'Thêm danh mục không thành công'});
       }
     }else{
       res.status(250);
