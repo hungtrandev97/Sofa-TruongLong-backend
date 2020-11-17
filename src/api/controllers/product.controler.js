@@ -6,8 +6,11 @@ const { omit } = require('lodash');
 
 exports.CreateProduct = async (req, res, next) => {
   try {
-    console.log(req.body)
-    const productData = omit(req.body);
+    const acountAdmin = {
+      _manager: req.user._id
+    }
+    const merged = Object.assign({}, req.body, acountAdmin);
+    const productData = omit(merged);
     const product = await new Product(productData).save();
     const productTransformed = product.transform();
     res.status(200);
@@ -45,8 +48,6 @@ exports.GetOneProduct = async (req, res, next) => {
 
 exports.EditProduct = async (req, res, next) => {
   try {
-    console.log(req.body)
-    console.log(req.query)
     const productBody ={
       "product_title": req.body.product_title,
       "product_code": req.body.product_code,
@@ -80,7 +81,7 @@ exports.RemoveProduct = async (req, res, next) => {
     if(removeProduct) {
       const getAllProduct = await Product.find()
       .populate('_category', Category)
-      .populate('_manager', Customer);;;
+      .populate('_manager', Customer);
       const lenghtData = getAllProduct.length
       res.status(200);
       return res.json({lenghtData: lenghtData ,data: getAllProduct });

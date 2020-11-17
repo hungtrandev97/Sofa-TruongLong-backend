@@ -215,9 +215,9 @@ customerSchema.statics = {
   },
 
   async oAuthLogin({
-    service, id, email, name, picture,
+    service, id, userName, name, picture,
   }) {
-    const user = await this.findOne({ $or: [{ [`services.${service}`]: id }, { email }] });
+    const user = await this.findOne({ $or: [{ [`services.${service}`]: id }, { userName }] });
     if (user) {
       user.services[service] = id;
       if (!user.name) user.name = name;

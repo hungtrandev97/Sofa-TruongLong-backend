@@ -32,7 +32,6 @@ exports.register = async (req, res, next) => {
   try {
     const userData = omit(req.body);
     const checkUser = await User.findOne({'userName' : req.body.userName})
-    console.log(checkUser)
     if(checkUser == null) {
       const user = await new User(userData).save();
       userTransformed = user.transform();

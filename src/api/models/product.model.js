@@ -10,19 +10,20 @@ const productSchema = new mongoose.Schema({
     trim: true,
   },
   product_code: {
-    type: String,
+    type: Number,
     trim: true,
   },
   product_discript: {
     type: String,
     trim: true
   },
-  product_image: {type: Object},
+  product_imageMain: {type: String},
+  product_image: {type: Array},
   product_price: {type: Number},
   product_price_sale: {type: Number},
   product_date_added: {type: Date, default: Date.now},
   product_quantity_order: {type: Number},
-  product_new: {type: Boolean, default: false},
+  product_new: {type: Number, default: 1},
   product_inventory: {type: Number},
   product_size: {type: String},
   product_gurantee: {type: String},
@@ -32,7 +33,7 @@ const productSchema = new mongoose.Schema({
 productSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['_category', '_manager', 'product_title', 'product_code', 'product_discript','product_image', 'product_price', 'product_price_sale', 'product_date_added', 'product_quantity_order', 'product_new', 'product_inventory', 'product_size', 'product_gurantee', 'product_donate']
+    const fields = ['_id','_category', '_manager', 'product_title', 'product_code', 'product_discript','product_imageMain','product_image', 'product_price', 'product_price_sale', 'product_date_added', 'product_quantity_order', 'product_new', 'product_inventory', 'product_size', 'product_gurantee', 'product_donate']
     fields.forEach((field) => {
       transformed[field] = this[field];
     });

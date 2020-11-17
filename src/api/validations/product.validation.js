@@ -6,20 +6,18 @@ module.exports = {
     body: {
       _category: Joi.string()
         .required(),
-      _manager: Joi.string()
-        .required(),
       product_title: Joi.string()
         .required(),
       product_code: Joi.number()
         .required(),
       product_discript: Joi.string()
         .required(),
-      // product_image: Joi.object()
-      //   .required(),
+      product_imageMain: Joi.string(),
+      product_image: Joi.array(),
       product_price: Joi.number().required(),
       product_price_sale: Joi.number().required(),
-      product_new: Joi.boolean().required(),
-      product_size: Joi.string().required(),
+      product_new: Joi.number().required(),
+      product_size: Joi.string(),
       product_gurantee: Joi.string(),
       product_donate: Joi.string()
     },
@@ -40,6 +38,8 @@ module.exports = {
         product_title: Joi.string(),
         product_code: Joi.number(),
         product_discript: Joi.string(),
+        product_imageMain: Joi.string(),
+        product_image: Joi.array(),
         product_price: Joi.number(),
         product_price_sale: Joi.number(),
         product_new: Joi.boolean(),

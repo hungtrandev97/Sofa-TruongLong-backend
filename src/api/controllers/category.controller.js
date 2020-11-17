@@ -30,7 +30,6 @@ exports.GetAllCategory = async (req, res, next) => {
   try {
     const getAllCategory = await Category.find();
     const lenghtData = getAllCategory.length
-    console.log(getAllCategory.length, 'getAllCategory')
       res.status(200);
       return res.json({lenghtData: lenghtData ,data: getAllCategory });
   } catch (error) {
@@ -60,8 +59,8 @@ exports.EditCategory = async (req, res, next) => {
 
 exports.RemoveCategory = async (req, res, next) => {
   try {
-    const checkProduct = await Product.find({_category: req.query.id_category});
-    if(checkProduct) {
+    const checkProduct = await Product.findOne({_category: req.query.id_category});
+    if(!checkProduct) {
       const removeCategory = await Category.findByIdAndRemove({_id: req.query.id_category})
       if(removeCategory) {
         const getAllCategory = await Category.find();

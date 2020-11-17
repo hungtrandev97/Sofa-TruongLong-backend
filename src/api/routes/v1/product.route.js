@@ -1,7 +1,7 @@
 const express = require('express');
 const validate = require('express-validation');
 const controller = require('../../controllers/product.controler');
-const oAuthLogin = require('../../middlewares/auth').oAuth;
+const { authorize, ADMIN, LOGGED_USER } = require('../../middlewares/auth');
 const {
   CreateProduct,
   GetOneProduct,
@@ -11,7 +11,7 @@ const {
 
 const router = express.Router();
 router.route('/CreateProduct')
-  .post(validate(CreateProduct), controller.CreateProduct);
+  .post(authorize(ADMIN),validate(CreateProduct), controller.CreateProduct);
 router.route('/GetAllProduct')
   .get(controller.GetAllProduct);
 router.route('/GetOneProduct')

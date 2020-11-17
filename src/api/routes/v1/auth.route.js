@@ -12,7 +12,7 @@ const {
 const router = express.Router();
 router.route('/register')
   .post(validate(register), controller.register);
-router.route('/loginCustomer')
+router.route('/loginAcount')
   .post(validate(login), controller.login);
 router.route('/refresh-token')
   .post(validate(refresh), controller.refresh);
