@@ -17,7 +17,6 @@ module.exports = {
       product_price: Joi.number().required(),
       product_price_sale: Joi.number().required(),
       product_new: Joi.number().required(),
-      product_size: Joi.string(),
       product_gurantee: Joi.string(),
       product_donate: Joi.string()
     },
