@@ -23,7 +23,6 @@ exports.CreateProduct = async (req, res, next) => {
 exports.GetAllProduct = async (req, res, next) => {
   try {
     const getAllProduct = await Product.find()
-    .sort({'product_date_added': -1})
     .populate('_category', Category)
     .populate('_manager', Customer);
     const lenghtData = getAllProduct.length
