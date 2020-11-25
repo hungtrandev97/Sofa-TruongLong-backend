@@ -17,8 +17,8 @@ router.route('/GetAllProduct')
 router.route('/GetOneProduct')
   .get(validate(GetOneProduct),controller.GetOneProduct);
 router.route('/EditProduct')
-  .get(validate(EditProduct),controller.EditProduct);
+  .get(authorize(ADMIN),validate(EditProduct),controller.EditProduct);
 router.route('/RemoveProduct')
-  .get(validate(RemoveProduct),controller.RemoveProduct);
+  .get(authorize(ADMIN),validate(RemoveProduct),controller.RemoveProduct);
 
 module.exports = router;

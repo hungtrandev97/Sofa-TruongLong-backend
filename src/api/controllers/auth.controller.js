@@ -47,6 +47,29 @@ exports.register = async (req, res, next) => {
   }
 };
 
+exports.registerAdmin = async (req, res, next) => {
+  try {
+    const roleAdmin = {
+      role: 1
+    }
+    const merged = Object.assign({}, req.body, roleAdmin);
+    const userData = omit(merged);
+    const checkUser = await User.findOne({'userName' : req.body.userName})
+    if(checkUser == null) {
+      const user = await new User(userData).save();
+      userTransformed = user.transform();
+      const token = generateTokenResponse(user, user.token());
+      res.status(200);
+      return res.json({ token, user: userTransformed });
+    }else{
+      res.status(250);
+      return res.json({message: 'Tên đăng nhập đã tồn tại'});
+    }
+  } catch (error) {
+    return next(error);
+  }
+};
+
 /**
  * Returns jwt token if valid username and password is provided
  * @public

@@ -4,18 +4,18 @@ const controller = require('../../controllers/category.controller');
 const { authorize, ADMIN, LOGGED_USER } = require('../../middlewares/auth');
 const { 
   CreateCategory,
-  getAllCategory,
-  EditCategory
+  EditCategory,
+  RemoveCategory
 } = require('../../validations/category.validation');
 
 const router = express.Router();
 router.route('/CreateCategory')
-  .post(controller.CreateCategory);
+  .post(authorize(ADMIN),validate(CreateCategory),controller.CreateCategory);
 router.route('/GetAllCategory')
   .get(controller.GetAllCategory);
 router.route('/EditCategory')
-  .put(controller.EditCategory);
+  .put(authorize(ADMIN),validate(EditCategory),controller.EditCategory);
 router.route('/RemoveCategory')
-  .put(controller.RemoveCategory);
+  .put(authorize(ADMIN),validate(RemoveCategory),controller.RemoveCategory);
 
   module.exports = router;

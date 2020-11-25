@@ -35,11 +35,18 @@ exports.GetAllProduct = async (req, res, next) => {
 
 exports.GetOneProduct = async (req, res, next) => {
   try {
-    const getOneProduct = await Product.findById({_id : req.query.id_product})
+    const getOneProduct = await Product.find({_id: req.query.id_product})
     .populate('_category', Category)
     .populate('_manager', Customer);
-    res.status(200);
-    return res.json({data: getOneProduct });
+    console.log(getOneProduct, 'getOneProduct')
+    if(getOneProduct != ""){
+      res.status(200);
+      return res.json({data: getOneProduct });
+    }else{
+      res.status(400);
+      return res.json({message: 'Không tìm thấy sản phẩm'});
+    }
+    
   } catch (error) {
     return next(error);
   }
@@ -51,11 +58,12 @@ exports.EditProduct = async (req, res, next) => {
       "product_title": req.body.product_title,
       "product_code": req.body.product_code,
       "product_discript": req.body.product_discript,
+      "product_imageMain": req.body.product_imageMain,
       "product_image": req.body.product_image,
       "product_price": req.body.product_price,
       "product_price_sale": req.body.product_price_sale,
       "product_new": req.body.product_new,
-      "product_size": req.body.product_size,
+      "_category": req.body._category,
     }
     const updateProduct = await Product.findByIdAndUpdate({_id: req.query.id_product}, productBody, {new: true})
     if(updateProduct) {
