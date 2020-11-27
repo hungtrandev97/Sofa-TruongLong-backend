@@ -33,6 +33,32 @@ exports.GetAllProduct = async (req, res, next) => {
   }
 }
 
+exports.GetAllProductNew = async (req, res, next) => {
+  try {
+    const getAllProduct = await Product.find({"product_new": 1})
+    .populate('_category', Category)
+    .populate('_manager', Customer);
+    const lenghtData = getAllProduct.length
+    res.status(200);
+    return res.json({lenghtData: lenghtData ,data: getAllProduct });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+exports.GetAllProductIndex = async (req, res, next) => {
+  try {
+    const getAllProduct = await Product.find({"product_index": 1})
+    .populate('_category', Category)
+    .populate('_manager', Customer);
+    const lenghtData = getAllProduct.length
+    res.status(200);
+    return res.json({lenghtData: lenghtData ,data: getAllProduct });
+  } catch (error) {
+    return next(error);
+  }
+}
+
 exports.GetOneProduct = async (req, res, next) => {
   try {
     const getOneProduct = await Product.find({_id: req.query.id_product})

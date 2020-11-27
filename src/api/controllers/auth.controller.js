@@ -173,3 +173,48 @@ exports.resetPassword = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.getAllAcountAdmin = async (req, res, next) => {
+  try {
+    const DataAcount = await User.find({'role' : 1});
+    if(DataAcount) {
+      res.status(200);
+      return res.json({data: DataAcount });
+    }else{
+      res.status(400);
+      return res.json({message: 'Không tìm thấy tài khoản'});
+    }
+  } catch (error) {
+    return next(error);
+  }
+}
+
+exports.getAllAcountUser = async (req, res, next) => {
+  try {
+    const DataAcount = await User.find({'role' : 2});
+    if(DataAcount) {
+      res.status(200);
+      return res.json({data: DataAcount });
+    }else{
+      res.status(400);
+      return res.json({message: 'Không tìm thấy tài khoản'});
+    }
+  } catch (error) {
+    return next(error);
+  }
+}
+
+exports.getOneAcount = async (req, res, next) => {
+  try {
+    const DataAcount = await User.findOne({'_id' : req.query.id_acount})
+    if(DataAcount) {
+      res.status(200);
+      return res.json({data: DataAcount });
+    }else{
+      res.status(400);
+      return res.json({message: 'Không tìm thấy tài khoản'});
+    }
+  } catch (error) {
+    return next(error);
+  }
+}

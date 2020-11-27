@@ -7,6 +7,7 @@ const {
   register,
   refresh,
   sendPasswordReset,
+  getOneAcount,
 } = require('../../validations/auth.validation');
 
 const router = express.Router();
@@ -20,5 +21,10 @@ router.route('/refresh-token')
   .post(validate(refresh), controller.refresh);
 router.route('/send-password-reset')
   .post(validate(sendPasswordReset), controller.sendPasswordReset);
-
+router.route('/getAllAcountAdmin')
+  .get(authorize(ADMIN), controller.getAllAcountAdmin);
+router.route('/getAllAcountUser')
+  .get(authorize(ADMIN), controller.getAllAcountUser);
+router.route('/getOneAcount')
+  .get(authorize(ADMIN),validate(getOneAcount), controller.getOneAcount);
 module.exports = router;

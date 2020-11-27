@@ -71,4 +71,10 @@ module.exports = {
       resetToken: Joi.string().required(),
     },
   },
+
+  getOneAcount: {
+    query: {
+      id_acount: Joi.string().required()
+    }
+  }
 };

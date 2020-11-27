@@ -20,5 +20,8 @@ router.route('/EditProduct')
   .get(authorize(ADMIN),validate(EditProduct),controller.EditProduct);
 router.route('/RemoveProduct')
   .get(authorize(ADMIN),validate(RemoveProduct),controller.RemoveProduct);
-
+router.route('/GetAllProductNew')
+  .get(controller.GetAllProductNew);
+router.route('/GetAllProductIndex')
+  .get(controller.GetAllProductIndex);
 module.exports = router;

@@ -1,3 +1,4 @@
+const { number } = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -26,13 +27,14 @@ const productSchema = new mongoose.Schema({
   product_new: {type: Number, default: 1},
   product_inventory: {type: Number},
   product_gurantee: {type: String},
-  product_donate: {type: String}
+  product_donate: {type: String},
+  product_index: {type: Number, default: 2},
 })
 
 productSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['_id','_category', '_manager', 'product_title', 'product_code', 'product_discript','product_imageMain','product_image', 'product_price', 'product_price_sale', 'product_date_added', 'product_quantity_order', 'product_new', 'product_inventory', 'product_gurantee', 'product_donate']
+    const fields = ['_id','_category', '_manager', 'product_title', 'product_code', 'product_discript','product_imageMain','product_image', 'product_price', 'product_price_sale', 'product_date_added', 'product_quantity_order', 'product_new', 'product_inventory', 'product_gurantee', 'product_donate', 'product_index']
     fields.forEach((field) => {
       transformed[field] = this[field];
     });
