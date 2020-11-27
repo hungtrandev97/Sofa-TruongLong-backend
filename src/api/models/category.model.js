@@ -9,6 +9,10 @@ const categorySchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  checkProduct: {
+    type: Number,
+    default: 2
+  }
 })
 
 /**
@@ -17,7 +21,7 @@ const categorySchema = new mongoose.Schema({
 categorySchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'category_title', 'date_create'];
+    const fields = ['id', 'category_title', 'date_create', 'checkProduct'];
     fields.forEach((field) => {
       transformed[field] = this[field];
     });

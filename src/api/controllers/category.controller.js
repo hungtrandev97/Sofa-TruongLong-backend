@@ -40,7 +40,8 @@ exports.GetAllCategory = async (req, res, next) => {
 exports.EditCategory = async (req, res, next) => {
   try {
     const categoryBody ={
-      "category_title": req.body.category_title
+      "category_title": req.body.category_title,
+      "checkProduct" : req.body.checkProduct
     }
     const updateCategory = await Category.findByIdAndUpdate({_id: req.query.id_category}, categoryBody, {new: true})
     if(updateCategory) {
