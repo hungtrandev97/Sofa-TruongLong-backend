@@ -240,17 +240,15 @@ exports.removeAcount = async (req,res,next) => {
 exports.editAcount = async (req,res,next) => {
   
   try {
-    const rounds = env === 'test' ? 1 : 10;
+  //   const rounds = env === 'test' ? 1 : 10;
 
-  const hash = await bcrypt.hash(req.body.password, rounds);
-  const passwordFormat = hash;
-  console.log(passwordFormat)
+  // const hash = await bcrypt.hash(req.body.password, rounds);
+  // const passwordFormat = hash;
     const userData ={
       "numberPhone": req.body.numberPhone,
       "address" : req.body.address,
       "gender": req.body.gender,
       "email": req.body.email,
-      "password" : passwordFormat,
       "userName": req.body.userName,
       "role": req.body.role
     }
