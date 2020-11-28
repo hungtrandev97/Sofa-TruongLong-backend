@@ -3,7 +3,8 @@ const User = require('../models/user.model');
 const RefreshToken = require('../models/refreshToken.model');
 const PasswordResetToken = require('../models/passwordResetToken.model');
 const moment = require('moment-timezone');
-const { jwtExpirationInterval } = require('../../config/vars');
+const { jwtExpirationInterval, env } = require('../../config/vars');
+const bcrypt = require('bcryptjs');
 const { omit } = require('lodash');
 const APIError = require('../utils/APIError');
 const emailProvider = require('../services/emails/emailProvider');
@@ -215,6 +216,53 @@ exports.getOneAcount = async (req, res, next) => {
     }else{
       res.status(400);
       return res.json({message: 'Không tìm thấy tài khoản'});
+    }
+  } catch (error) {
+    return next(error);
+  }
+}
+
+exports.removeAcount = async (req,res,next) => {
+  try {
+    const DataAcount = await User.findOneAndDelete({'_id' : req.query.id_acount})
+    if(DataAcount) {
+      res.status(200);
+      return res.json({data: DataAcount });
+    }else{
+      res.status(400);
+      return res.json({message: 'Không tìm thấy tài khoản'});
+    }
+  } catch (error) {
+    return next(error);
+  }
+}
+
+exports.editAcount = async (req,res,next) => {
+  
+  try {
+    const rounds = env === 'test' ? 1 : 10;
+
+  const hash = await bcrypt.hash(req.body.password, rounds);
+  const passwordFormat = hash;
+  console.log(passwordFormat)
+    const userData ={
+      "numberPhone": req.body.numberPhone,
+      "address" : req.body.address,
+      "gender": req.body.gender,
+      "email": req.body.email,
+      "password" : passwordFormat,
+      "userName": req.body.userName,
+      "role": req.body.role
+    }
+    const updateUser = await User.findByIdAndUpdate({_id: req.query.id_acount}, userData, {new: true})
+    if(updateUser) {
+      const getAllUser = await User.find();
+      const lenghtData = getAllUser.length
+      res.status(200);
+      return res.json({lenghtData: lenghtData ,data: getAllUser });
+    }else{
+      res.status(250);
+      return res.json({message: 'Không tìm thấy danh mục'});
     }
   } catch (error) {
     return next(error);

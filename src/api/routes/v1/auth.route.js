@@ -8,6 +8,8 @@ const {
   refresh,
   sendPasswordReset,
   getOneAcount,
+  removeAcount,
+  editAcount
 } = require('../../validations/auth.validation');
 
 const router = express.Router();
@@ -27,4 +29,8 @@ router.route('/getAllAcountUser')
   .get(authorize(ADMIN), controller.getAllAcountUser);
 router.route('/getOneAcount')
   .get(authorize(ADMIN),validate(getOneAcount), controller.getOneAcount);
+router.route('/removeAcount')
+  .get(authorize(ADMIN),validate(removeAcount), controller.removeAcount);
+router.route('/editAcount')
+  .put(validate(editAcount), controller.editAcount);
 module.exports = router;
