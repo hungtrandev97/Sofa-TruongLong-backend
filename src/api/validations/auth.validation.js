@@ -13,7 +13,7 @@ module.exports = {
         .required(),
       gender: Joi.number()
         .required(),
-        address: Joi.string()
+      address: Joi.string()
         .required(),
       numberPhone: Joi.number()
         .required(),

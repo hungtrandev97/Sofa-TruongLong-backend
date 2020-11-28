@@ -31,6 +31,7 @@ function generateTokenResponse(Customer, accessToken) {
 exports.register = async (req, res, next) => {
   try {
     const userData = omit(req.body);
+    console.log(req.body, "sakkcaknlalk")
     const checkUser = await User.findOne({'userName' : req.body.userName})
     if(checkUser == null) {
       const user = await new User(userData).save();
