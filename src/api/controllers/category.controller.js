@@ -36,6 +36,15 @@ exports.GetAllCategory = async (req, res, next) => {
     return next(error);
   }
 }
+exports.GetOneCategory = async (req, res, next) => {
+  try {
+    const getOneCategory = await Category.find({_id: req.query.id_category});
+      res.status(200);
+      return res.json({ data: getOneCategory });
+  } catch (error) {
+    return next(error);
+  }
+}
 
 exports.EditCategory = async (req, res, next) => {
   try {

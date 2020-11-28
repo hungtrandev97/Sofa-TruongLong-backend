@@ -13,6 +13,8 @@ router.route('/CreateCategory')
   .post(authorize(ADMIN),validate(CreateCategory),controller.CreateCategory);
 router.route('/GetAllCategory')
   .get(controller.GetAllCategory);
+router.route('/GetOneCategory')
+  .get(validate(EditCategory), controller.GetOneCategory);
 router.route('/EditCategory')
   .put(authorize(ADMIN),validate(EditCategory),controller.EditCategory);
 router.route('/RemoveCategory')

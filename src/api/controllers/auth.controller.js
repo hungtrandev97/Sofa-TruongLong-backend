@@ -57,11 +57,12 @@ exports.registerAdmin = async (req, res, next) => {
     const userData = omit(merged);
     const checkUser = await User.findOne({'userName' : req.body.userName})
     if(checkUser == null) {
-      const user = await new User(userData).save();
-      userTransformed = user.transform();
-      const token = generateTokenResponse(user, user.token());
-      res.status(200);
-      return res.json({ token, user: userTransformed });
+      const user = await User(userData).save();
+      const DataAcount = await User.find({'role' : 1});
+      if(DataAcount) {
+        res.status(200);
+        return res.json({data: DataAcount });
+      }
     }else{
       res.status(250);
       return res.json({message: 'Tên đăng nhập đã tồn tại'});
