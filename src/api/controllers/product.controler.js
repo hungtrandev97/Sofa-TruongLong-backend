@@ -78,6 +78,82 @@ exports.GetOneProduct = async (req, res, next) => {
   }
 }
 
+exports.GetAllProductPrice = async (req,res,next) => {
+  try {
+    console.log(req)
+    if(req.body.product_price > 0) {
+      const getOneProduct = await Product.find({product_price: {$gt : req.body.product_price}})
+      .populate('_category', Category)
+      .populate('_manager', Customer);
+      console.log(getOneProduct, 'getOneProduct')
+      if(getOneProduct != ""){
+        res.status(200);
+        return res.json({data: getOneProduct });
+      }else{
+        res.status(400);
+        return res.json({message: 'Không tìm thấy sản phẩm'});
+      }
+    }
+  } catch (error) {
+    return next(error);
+  }
+}
+
+exports.GetAllProductPriceSale = async (req,res,next) => {
+  try {
+    const getOneProduct = await Product.find()
+    .populate('_category', Category)
+    .populate('_manager', Customer);
+    console.log(getOneProduct, 'getOneProduct')
+    if(getOneProduct != ""){
+      res.status(200);
+      return res.json({data: getOneProduct });
+    }else{
+      res.status(400);
+      return res.json({message: 'Không tìm thấy sản phẩm'});
+    }
+  } catch (error) {
+    return next(error);
+  }
+}
+
+exports.GetAllProductCategory = async (req,res,next) => {
+  console.log(req.query.id_category)
+  try {
+    const getOneProduct = await Product.find({"_category": req.query.id_category})
+    .populate('_category', Category)
+    .populate('_manager', Customer);
+    console.log(getOneProduct, 'getOneProduct')
+    if(getOneProduct != ""){
+      res.status(200);
+      return res.json({data: getOneProduct });
+    }else{
+      res.status(400);
+      return res.json({message: 'Không tìm thấy sản phẩm'});
+    }
+  } catch (error) {
+    return next(error);
+  }
+}
+
+exports.GetAllProductNew = async (req,res,next) => {
+  try {
+    const getOneProduct = await Product.find({product_new: req.body.product_new})
+    .populate('_category', Category)
+    .populate('_manager', Customer);
+    console.log(getOneProduct, 'getOneProduct')
+    if(getOneProduct != ""){
+      res.status(200);
+      return res.json({data: getOneProduct });
+    }else{
+      res.status(400);
+      return res.json({message: 'Không tìm thấy sản phẩm'});
+    }
+  } catch (error) {
+    return next(error);
+  }
+}
+
 exports.EditProduct = async (req, res, next) => {
   try {
     const productBody ={
@@ -109,6 +185,7 @@ exports.EditProduct = async (req, res, next) => {
 }
 
 exports.RemoveProduct = async (req, res, next) => {
+  console.log(req)
   try {
     const removeProduct = await Product.findByIdAndRemove({_id: req.query.id_product})
     if(removeProduct) {

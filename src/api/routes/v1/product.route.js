@@ -24,4 +24,12 @@ router.route('/GetAllProductNew')
   .get(controller.GetAllProductNew);
 router.route('/GetAllProductIndex')
   .get(controller.GetAllProductIndex);
+router.route('/GetAllProductPrice')
+  .get(controller.GetAllProductPrice);
+router.route('/GetAllProductNew')
+  .get(controller.GetAllProductNew);
+router.route('/GetAllProductPriceSale')
+  .get(controller.GetAllProductPriceSale);
+router.route('/GetAllProductCategory')
+  .get(controller.GetAllProductCategory);
 module.exports = router;
