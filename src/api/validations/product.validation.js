@@ -13,7 +13,7 @@ module.exports = {
       product_discript: Joi.string()
         .required(),
       product_imageMain: Joi.string(),
-      // product_image: Joi.array(),
+      product_image: Joi.array(),
       product_price: Joi.string().required(),
       product_new: Joi.number().required(),
       product_gurantee: Joi.string(),

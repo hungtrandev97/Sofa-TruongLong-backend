@@ -8,10 +8,12 @@ mongoose.connect();
 
 // listen to requests
 // app.listen(port, () => logger.info(`server started on port ${port} (${env})`));
+
 app.listen(process.env.PORT || 3002);
 
 /**
 * Exports express
 * @public
 */
+
 module.exports = app;
