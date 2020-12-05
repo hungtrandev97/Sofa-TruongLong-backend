@@ -17,44 +17,44 @@ const error = require('../api/middlewares/error');
 */
 
 const app = express();
-let number = 0
+// let number = 0
 
-const server = require('http').Server(app)
-var options = {
-  allowUpgrades: true,
-  transports: [ 'polling', 'websocket' ],
-  pingTimeout: 9000,
-  pingInterval: 3000,
-  cookie: 'mycookie',
-  httpCompression: true,
-  origins: '*:*'
-};
-let numberArr = [];
-const io = require('socket.io')(server, options);
-// console.log(io);
-io.on('connection', function(socket){
-  if(numberArr.length > 0 ){
-    numberArr.map((item) => {
-      if(item !== socket.id){
-        numberArr.push(socket.id);
-        number++;
-        console.log('co nguoi let noi'+ socket.id);
-      }
-    })
-  }else{
-    console.log('co nguoi let noi'+ socket.id);
-    numberArr.push(socket.id)
-    number++;
-  }
-  // number++;
-  // ngat ket noi
-  socket.on("disconnect", function() {
-    console.log('ngat ket noi'+ socket.id);
-    number--;
-  })
+// const server = require('http').Server(app)
+// var options = {
+//   allowUpgrades: true,
+//   transports: [ 'polling', 'websocket' ],
+//   pingTimeout: 9000,
+//   pingInterval: 3000,
+//   cookie: 'mycookie',
+//   httpCompression: true,
+//   origins: '*:*'
+// };
+// let numberArr = [];
+// const io = require('socket.io')(server, options);
+// // console.log(io);
+// io.on('connection', function(socket){
+//   if(numberArr.length > 0 ){
+//     numberArr.map((item) => {
+//       if(item !== socket.id){
+//         numberArr.push(socket.id);
+//         number++;
+//         console.log('co nguoi let noi'+ socket.id);
+//       }
+//     })
+//   }else{
+//     console.log('co nguoi let noi'+ socket.id);
+//     numberArr.push(socket.id)
+//     number++;
+//   }
+//   // number++;
+//   // ngat ket noi
+//   socket.on("disconnect", function() {
+//     console.log('ngat ket noi'+ socket.id);
+//     number--;
+//   })
 
-  socket.emit("numberOnline", numberArr.length)
-})
+//   socket.emit("numberOnline", numberArr.length)
+// })
 
 // request logging. dev: console | production: file
 app.use(morgan(logs));

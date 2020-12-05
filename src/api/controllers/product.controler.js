@@ -101,7 +101,7 @@ exports.GetAllProductPrice = async (req,res,next) => {
 
 exports.GetAllProductPriceSale = async (req,res,next) => {
   try {
-    const getOneProduct = await Product.find()
+    const getOneProduct = await Product.find({product_price_sale: {$ne : ""}})
     .populate('_category', Category)
     .populate('_manager', Customer);
     console.log(getOneProduct, 'getOneProduct')
