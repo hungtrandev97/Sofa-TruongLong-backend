@@ -19,9 +19,13 @@ const productSchema = new mongoose.Schema({
     trim: true
   },
   product_imageMain: {type: String},
+  product_product_imageMainUrl: {type: String},
   product_image1: {type: String},
+  product_image_url1: {type: String},
   product_image2: {type: String},
+  product_image_url2: {type: String},
   product_image3: {type: String},
+  product_image_url3: {type: String},
   product_price: {type: String},
   product_priceNumber: {type: Number},
   product_price_sale: {type: String},

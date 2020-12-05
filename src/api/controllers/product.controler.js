@@ -167,19 +167,10 @@ exports.GetAllProductNew = async (req,res,next) => {
 }
 
 exports.EditProduct = async (req, res, next) => {
+  console.log(req.body);
+  console.log(req.query)
   try {
-    const productBody ={
-      "product_title": req.body.product_title,
-      "product_code": req.body.product_code,
-      "product_discript": req.body.product_discript,
-      "product_imageMain": req.body.product_imageMain,
-      "product_image": req.body.product_image,
-      "product_price": req.body.product_price,
-      "product_price_sale": req.body.product_price_sale,
-      "product_new": req.body.product_new,
-      "_category": req.body._category,
-    }
-    const updateProduct = await Product.findByIdAndUpdate({_id: req.query.id_product}, productBody, {new: true})
+    const updateProduct = await Product.findByIdAndUpdate({_id: req.query.id_product}, req.body, {new: true})
     if(updateProduct) {
       const getAllProduct = await Product.find()
       .populate('_category', Category)

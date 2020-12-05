@@ -10,10 +10,8 @@ module.exports = {
         .required(),
       product_code: Joi.number()
         .required(),
-      product_discript: Joi.string()
-        .required(),
+      product_discript: Joi.string(),
       product_imageMain: Joi.string(),
-      product_image: Joi.array(),
       product_price: Joi.string().required(),
       product_new: Joi.number().required(),
       product_gurantee: Joi.string(),
@@ -37,7 +35,6 @@ module.exports = {
         product_code: Joi.number(),
         product_discript: Joi.string(),
         product_imageMain: Joi.string(),
-        product_image: Joi.array(),
         product_price: Joi.string(),
         product_price_sale: Joi.string(),
         product_new: Joi.boolean(),
