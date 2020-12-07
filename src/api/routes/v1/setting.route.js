@@ -8,6 +8,6 @@ const {
 
 const router = express.Router();
 
-router.route('/updateSlider')
+router.route('/updateSetting')
   .post(authorize(ADMIN),validate(updateSetting), controller.UpdateSetting);
 module.exports = router;
