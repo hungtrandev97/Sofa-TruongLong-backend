@@ -4,9 +4,9 @@ const { omit } = require('lodash');
 exports.UpdateSetting = async (req, res, next) => {
   try {
     const settingData = omit(req.body);
-    const findImage = await Setting.findOne();
-    if(findImage.length > 0) {
-      const settingUpdate = await Setting.findByIdAndUpdate({_id: findImage._id},settingData, {new: true})
+    const findImage = await Setting.find();
+    if(findImage && findImage.length > 0) {
+      const settingUpdate = await Setting.findByIdAndUpdate({_id: findImage[0]._id},settingData, {new: true})
       const settingUpdateTransformed = settingUpdate.transform();
       res.status(200);
       return res.json({data: settingUpdateTransformed });
