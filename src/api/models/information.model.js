@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const httpStatus = require('http-status');
-const jwt = require('jwt-simple');
-const { env, jwtSecret, jwtExpirationInterval } = require('../../config/vars');
 
 const informationSchema = new mongoose.Schema({
   image_logo: {

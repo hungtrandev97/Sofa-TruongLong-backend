@@ -4,7 +4,6 @@ const RefreshToken = require('../models/refreshToken.model');
 const PasswordResetToken = require('../models/passwordResetToken.model');
 const moment = require('moment-timezone');
 const { jwtExpirationInterval, env } = require('../../config/vars');
-const bcrypt = require('bcryptjs');
 const { omit } = require('lodash');
 const APIError = require('../utils/APIError');
 const emailProvider = require('../services/emails/emailProvider');
@@ -239,10 +238,6 @@ exports.removeAcount = async (req,res,next) => {
 exports.editAcount = async (req,res,next) => {
   
   try {
-  //   const rounds = env === 'test' ? 1 : 10;
-
-  // const hash = await bcrypt.hash(req.body.password, rounds);
-  // const passwordFormat = hash;
     const userData ={
       "numberPhone": req.body.numberPhone,
       "address" : req.body.address,

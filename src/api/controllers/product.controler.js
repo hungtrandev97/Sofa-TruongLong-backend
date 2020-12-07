@@ -64,7 +64,6 @@ exports.GetOneProduct = async (req, res, next) => {
     const getOneProduct = await Product.find({_id: req.query.id_product})
     .populate('_category', Category)
     .populate('_manager', Customer);
-    console.log(getOneProduct, 'getOneProduct')
     if(getOneProduct != ""){
       res.status(200);
       return res.json({data: getOneProduct });
@@ -80,12 +79,10 @@ exports.GetOneProduct = async (req, res, next) => {
 
 exports.GetAllProductPrice = async (req,res,next) => {
   try {
-    console.log(req)
     if(req.body.product_price > 0) {
-      const getOneProduct = await Product.find({product_priceNumber: {$gt : req.body.product_price}})
+      const getOneProduct = await Product.find({product_priceNumber: {$lt : req.body.product_price}})
       .populate('_category', Category)
       .populate('_manager', Customer);
-      console.log(getOneProduct, 'getOneProduct')
       if(getOneProduct != ""){
         res.status(200);
         return res.json({data: getOneProduct });
@@ -97,7 +94,6 @@ exports.GetAllProductPrice = async (req,res,next) => {
       const getOneProduct = await Product.find()
       .populate('_category', Category)
       .populate('_manager', Customer);
-      console.log(getOneProduct, 'getOneProduct')
       if(getOneProduct != ""){
         res.status(200);
         return res.json({data: getOneProduct });
@@ -116,7 +112,6 @@ exports.GetAllProductPriceSale = async (req,res,next) => {
     const getOneProduct = await Product.find({product_price_sale: {$ne : ""}})
     .populate('_category', Category)
     .populate('_manager', Customer);
-    console.log(getOneProduct, 'getOneProduct')
     if(getOneProduct != ""){
       res.status(200);
       return res.json({data: getOneProduct });
@@ -130,15 +125,13 @@ exports.GetAllProductPriceSale = async (req,res,next) => {
 }
 
 exports.GetAllProductCategory = async (req,res,next) => {
-  console.log(req.query.id_category)
   try {
-    const getOneProduct = await Product.find({"_category": req.query.id_category})
+    const GetAllProductCategory = await Product.find({"_category": req.query.id_category})
     .populate('_category', Category)
     .populate('_manager', Customer);
-    console.log(getOneProduct, 'getOneProduct')
-    if(getOneProduct != ""){
+    if(GetAllProductCategory != ""){
       res.status(200);
-      return res.json({data: getOneProduct });
+      return res.json({data: GetAllProductCategory });
     }else{
       res.status(400);
       return res.json({message: 'Không tìm thấy sản phẩm'});
@@ -153,7 +146,6 @@ exports.GetAllProductNew = async (req,res,next) => {
     const getOneProduct = await Product.find({product_new: 1})
     .populate('_category', Category)
     .populate('_manager', Customer);
-    console.log(getOneProduct, 'getOneProduct')
     if(getOneProduct != ""){
       res.status(200);
       return res.json({data: getOneProduct });
@@ -167,8 +159,6 @@ exports.GetAllProductNew = async (req,res,next) => {
 }
 
 exports.EditProduct = async (req, res, next) => {
-  console.log(req.body);
-  console.log(req.query)
   try {
     const updateProduct = await Product.findByIdAndUpdate({_id: req.query.id_product}, req.body, {new: true})
     if(updateProduct) {
@@ -188,7 +178,6 @@ exports.EditProduct = async (req, res, next) => {
 }
 
 exports.RemoveProduct = async (req, res, next) => {
-  console.log(req)
   try {
     const removeProduct = await Product.findByIdAndRemove({_id: req.query.id_product})
     if(removeProduct) {

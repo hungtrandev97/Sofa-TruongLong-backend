@@ -66,12 +66,9 @@ const customerSchema = new mongoose.Schema({
 customerSchema.pre('save', async function save(next) {
   try {
     if (!this.isModified('password')) return next();
-
     const rounds = env === 'test' ? 1 : 10;
-
     const hash = await bcrypt.hash(this.password, rounds);
     this.password = hash;
-
     return next();
   } catch (error) {
     return next(error);
@@ -85,11 +82,9 @@ customerSchema.method({
   transform() {
     const transformed = {};
     const fields = ['id', 'userName', 'password', 'email', 'gender', 'address', 'numberPhone', 'numberPoint', 'status', 'role' ];
-
     fields.forEach((field) => {
       transformed[field] = this[field];
     });
-
     return transformed;
   },
 
@@ -123,7 +118,6 @@ customerSchema.statics = {
   async get(id) {
     try {
       let user;
-
       if (mongoose.Types.ObjectId.isValid(id)) {
         user = await this.findById(id).exec();
       }
@@ -182,7 +176,6 @@ customerSchema.statics = {
     page = 1, perPage = 30, name, email, role,
   }) {
     const options = omitBy({ name, email, role }, isNil);
-
     return this.find(options)
       .sort({ createdAt: -1 })
       .skip(perPage * (page - 1))
