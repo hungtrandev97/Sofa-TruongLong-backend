@@ -49,6 +49,7 @@ const customerSchema = new mongoose.Schema({
     type: Number,
     trim: true,
     index: true,
+    default: 0
   },
   status: {
     type: Number,

@@ -31,7 +31,7 @@ const productSchema = new mongoose.Schema({
   product_price_sale: {type: String},
   product_priceNumber_sale: {type: Number},
   product_date_added: {type: Date, default: Date.now},
-  product_quantity_order: {type: Number},
+  product_quantity_order: {type: Number, default: 0},
   product_new: {type: Number, default: 1},
   product_inventory: {type: Number},
   product_gurantee: {type: String},

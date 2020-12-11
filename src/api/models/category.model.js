@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const categorySchema = new mongoose.Schema({
   category_title: {
     type: String,
-    trim: true
+    trim: true,
+    default: ""
   },
   date_create: {
     type: Date,
