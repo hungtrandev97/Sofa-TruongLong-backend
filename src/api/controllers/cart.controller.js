@@ -3,6 +3,7 @@ const CartDetail = require('../models/cartDetail');
 const Product = require('../models/product.model');
 const Customer = require('../models/user.model');
 const { omit } = require('lodash');
+const { findByIdAndUpdate } = require('../models/product.model');
 
 exports.createCart = async (req, res, next) => {
   try {
@@ -34,6 +35,34 @@ exports.createCart = async (req, res, next) => {
       });
       return res.json({ data: cart });
     }
+  } catch (error) {
+    return next(error)
+  }
+}
+
+exports.updateCart = async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const cartData = {
+      "address": req.body.address,
+      "numberPhone": req.body.numberPhone,
+    }
+    const cartDataUpdate = omit(cartData);
+    const cart = await Cart.findByIdAndUpdate({_id: req.query.idCart},cartDataUpdate, {new: true});
+    return res.json({ data: cart });
+  } catch (error) {
+    return next(error)
+  }
+}
+
+exports.updateCartStatus = async (req, res, next) => {
+  try {
+    const cartData = {
+      "status": req.body.status,
+    }
+    const cartDataUpdate = omit(cartData);
+    const cart = await Cart.findByIdAndUpdate({_id: req.query.idCart},cartDataUpdate, {new: true});
+    return res.json({ data: cart });
   } catch (error) {
     return next(error)
   }

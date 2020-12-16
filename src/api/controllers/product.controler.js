@@ -195,3 +195,16 @@ exports.RemoveProduct = async (req, res, next) => {
     return next(error);
   }
 }
+
+exports.SearchProduct = async (req,res,next) => {
+  try {
+    const getProductSearch = await Product.find({product_title: {$regex: req.body.search,$options: 'i'}})
+    .populate('_category', Category)
+    .populate('_manager', Customer);
+    const lenghtData = getProductSearch.length
+    res.status(200);
+    return res.json({lenghtData: lenghtData ,data: getProductSearch });
+  } catch (error) {
+    return next(error);
+  }
+}

@@ -8,5 +8,8 @@ const {
 const router = express.Router();
 router.route('/createCart')
   .post(controller.createCart);
-
+router.route('/updateCart')
+  .post(controller.updateCart);
+router.route('/updateCartStatus')
+  .post(controller.updateCartStatus);
 module.exports = router;
