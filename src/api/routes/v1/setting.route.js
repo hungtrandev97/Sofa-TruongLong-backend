@@ -8,6 +8,8 @@ const {
 
 const router = express.Router();
 
+router.route('/updatePoind')
+  .post(controller.updatePoind);
 router.route('/updateSetting')
   .post(authorize(ADMIN),validate(updateSetting), controller.UpdateSetting);
 module.exports = router;

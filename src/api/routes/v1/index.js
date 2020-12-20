@@ -7,6 +7,9 @@ const cartRoutes = require('./cart.route')
 
 const router = express.Router();
 
+router.get('/', (req, res) => {
+  res.send('sever is up and running')
+})
 /**
  * GET v1/status
  */

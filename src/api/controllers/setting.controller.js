@@ -20,3 +20,19 @@ exports.UpdateSetting = async (req, res, next) => {
     return next(error)
   }
 }
+
+exports.updatePoind = async (req, res, body) => {
+  try {
+    const settingData = omit(req.body);
+    const findImage = await Setting.find();
+    const findCound = findImage[0].CountPoint;
+    console.log(findCound, 'asdjkajksdkla')
+      const settingUpdate = await Setting.findByIdAndUpdate({_id: findImage[0]._id},settingData, {new: true})
+      const settingUpdateTransformed = settingUpdate.transform();
+      res.status(200);
+      return res.json({data: settingUpdateTransformed });
+    
+  } catch (error) {
+    return next(error)
+  }
+}
