@@ -13,7 +13,7 @@ const settingSchema = new mongoose.Schema({
   email: {type: String, match: /^\S+@\S+\.\S+$/},
   linkFB: {type: String},
   numberPhoneZallo: {type:String},
-  CountPoint: {type: Number}
+  CountPoint: {type: Number, default: 1}
 })
 
 settingSchema.method({

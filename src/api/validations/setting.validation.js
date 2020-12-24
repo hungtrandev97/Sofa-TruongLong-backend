@@ -19,4 +19,9 @@ module.exports = {
       CountPoint: Joi.number()
     },
   },
+  updatePoind: {
+    body: {
+      CountPoint: Joi.number()
+    }
+  }
 }

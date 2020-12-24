@@ -49,7 +49,6 @@ io.on('connection', (socket) => {
   online++;
   io.emit("numberOnlineServe", online);
   socket.on('disconnect', function () {
-    socket.emit('disconnected');
     online--;
     console.log('co ngat nguoi ket nói ' , socket.id)
     io.emit("numberOnlineServe", online);
