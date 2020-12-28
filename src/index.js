@@ -11,24 +11,7 @@ const { v1 } = require('uuid');
 const PORT = 3002
 const app = express();
 mongoose.connect();
-// const server = http.createServer(app);
-// const io = socketio(server, {
-//   cors: {
-//     origin: '*',
-//   }
-// });
 
-// io.on('connection', (socket) => {
-//   console.log('we have a new connect.');
-
-//   socket.on('join', ({ name, room }) => {
-//     console.log(name, room)
-//   })
-
-//   socket.on('disconect', () => {
-//     console.log(' User had left')
-//   })
-// })
 
 let online = 0
 let numberArr = [];
