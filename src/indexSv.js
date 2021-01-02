@@ -1,22 +1,19 @@
 const express = require('express');
-const socketio = require('socket.io');
 const http = require('http');
-Promise = require('bluebird'); // eslint-disable-line no-global-assign
+const socketio = require('socket.io');
 const router = require('./config/express');
 const mongoose = require('./config/mongoose');
 
-// open mongoose connection
-const PORT = 5000
 const hostname = '103.15.50.89';
+
+const port = 4000;
 const app = express();
+
 mongoose.connect();
-
-
 let online = 0
 const server = http.createServer((req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
-    res.end('This is a test fro nodjs app.js!\n');
 });
 const io = socketio(server, {
   cors: {
@@ -26,9 +23,9 @@ const io = socketio(server, {
 app.use(router)
 
 
-// listen to requests
 server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
+    
 });
 
 io.on('connection', (socket) => {

@@ -9,6 +9,8 @@ const {
 
 const router = express.Router();
 
+router.route('/getAllSetting')
+  .get(controller.getAllSetting);
 router.route('/updatePoind')
   .post(validate(updatePoind),controller.updatePoind);
 router.route('/updateSetting')

@@ -1,6 +1,16 @@
 const Setting = require('../models/setting.model');
 const { omit } = require('lodash');
 
+exports.getAllSetting = async (req,res, next) => {
+  try {
+    const settingAll = await Setting.find();
+    res.status(200);
+    return res.json({data: settingAll });
+  } catch (error) {
+    return next(error)
+  }
+}
+
 exports.UpdateSetting = async (req, res, next) => {
   try {
     const settingData = omit(req.body);
