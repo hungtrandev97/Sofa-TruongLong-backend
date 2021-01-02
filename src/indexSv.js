@@ -6,7 +6,7 @@ const mongoose = require('./config/mongoose');
 
 const hostname = '103.15.50.89';
 
-const port = 4000;
+const port = 5000;
 const app = express();
 
 mongoose.connect();
