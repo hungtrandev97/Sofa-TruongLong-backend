@@ -1,7 +1,6 @@
 const express = require('express');
 const validate = require('express-validation');
 const controller = require('../../controllers/auth.controller');
-const { authorize, ADMIN } = require('../../middlewares/auth');
 const {
   login,
   register,
@@ -16,7 +15,7 @@ const router = express.Router();
 router.route('/register')
   .post(validate(register), controller.register);
 router.route('/registerAdmin')
-  .post(authorize(ADMIN),validate(register), controller.registerAdmin);
+  .post(validate(register), controller.registerAdmin);
 router.route('/loginAcount')
   .post(validate(login), controller.login);
 router.route('/refresh-token')
@@ -24,13 +23,13 @@ router.route('/refresh-token')
 router.route('/send-password-reset')
   .post(validate(sendPasswordReset), controller.sendPasswordReset);
 router.route('/getAllAcountAdmin')
-  .get(authorize(ADMIN), controller.getAllAcountAdmin);
+  .get(controller.getAllAcountAdmin);
 router.route('/getAllAcountUser')
-  .get(authorize(ADMIN), controller.getAllAcountUser);
+  .get(controller.getAllAcountUser);
 router.route('/getOneAcount')
-  .get(authorize(ADMIN),validate(getOneAcount), controller.getOneAcount);
+  .get(validate(getOneAcount), controller.getOneAcount);
 router.route('/removeAcount')
-  .get(authorize(ADMIN),validate(removeAcount), controller.removeAcount);
+  .get(validate(removeAcount), controller.removeAcount);
 router.route('/editAcount')
   .put(validate(editAcount), controller.editAcount);
 module.exports = router;

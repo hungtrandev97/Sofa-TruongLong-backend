@@ -6,11 +6,7 @@ const { omit } = require('lodash');
 
 exports.CreateProduct = async (req, res, next) => {
   try {
-    const acountAdmin = {
-      _manager: req.user._id
-    }
-    const merged = Object.assign({}, req.body, acountAdmin);
-    const productData = omit(merged);
+    const productData = omit(req.body);
     const product = await new Product(productData).save();
     const productTransformed = product.transform();
     res.status(200);

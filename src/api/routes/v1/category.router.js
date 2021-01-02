@@ -1,7 +1,6 @@
 const express = require('express');
 const validate = require('express-validation');
 const controller = require('../../controllers/category.controller');
-const { authorize, ADMIN } = require('../../middlewares/auth');
 const { 
   CreateCategory,
   EditCategory,
@@ -10,14 +9,14 @@ const {
 
 const router = express.Router();
 router.route('/CreateCategory')
-  .post(authorize(ADMIN),validate(CreateCategory),controller.CreateCategory);
+  .post(validate(CreateCategory),controller.CreateCategory);
 router.route('/GetAllCategory')
   .get(controller.GetAllCategory);
 router.route('/GetOneCategory')
   .get(validate(EditCategory), controller.GetOneCategory);
 router.route('/EditCategory')
-  .put(authorize(ADMIN),validate(EditCategory),controller.EditCategory);
+  .put(validate(EditCategory),controller.EditCategory);
 router.route('/RemoveCategory')
-  .put(authorize(ADMIN),validate(RemoveCategory),controller.RemoveCategory);
+  .put(validate(RemoveCategory),controller.RemoveCategory);
 
   module.exports = router;

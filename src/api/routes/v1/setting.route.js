@@ -1,7 +1,6 @@
 const express = require('express');
 const validate = require('express-validation');
 const controller = require('../../controllers/setting.controller');
-const { authorize, ADMIN } = require('../../middlewares/auth');
 const {
   updatePoind,
   updateSetting,
@@ -14,5 +13,5 @@ router.route('/getAllSetting')
 router.route('/updatePoind')
   .post(validate(updatePoind),controller.updatePoind);
 router.route('/updateSetting')
-  .post(authorize(ADMIN),validate(updateSetting), controller.UpdateSetting);
+  .post(validate(updateSetting), controller.UpdateSetting);
 module.exports = router;
