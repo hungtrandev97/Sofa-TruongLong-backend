@@ -64,7 +64,7 @@ exports.GetOneProduct = async (req, res, next) => {
       res.status(200);
       return res.json({data: getOneProduct });
     }else{
-      res.status(400);
+      res.status(250);
       return res.json({message: 'Không tìm thấy sản phẩm'});
     }
     
@@ -76,7 +76,7 @@ exports.GetOneProduct = async (req, res, next) => {
 exports.GetAllProductPrice = async (req,res,next) => {
   try {
     if(req.body.product_price > 0) {
-      const getOneProduct = await Product.find({product_priceNumber: {$lt : req.body.product_price}})
+      const getOneProduct = await Product.find({product_priceNumber_sale: {$lt : req.body.product_price}})
       .populate('_category', Category)
       .populate('_manager', Customer);
       if(getOneProduct != ""){
