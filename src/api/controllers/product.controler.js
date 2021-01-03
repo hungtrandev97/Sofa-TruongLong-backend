@@ -75,8 +75,8 @@ exports.GetOneProduct = async (req, res, next) => {
 
 exports.GetAllProductPrice = async (req,res,next) => {
   try {
-    if(req.body.product_price > 0) {
-      const getOneProduct = await Product.find({product_priceNumber_sale: {$lt : req.body.product_price}})
+    if(req.query.product_price > 0) {
+      const getOneProduct = await Product.find({product_priceNumber_sale: {$lt : req.query.product_price}})
       .populate('_category', Category)
       .populate('_manager', Customer);
       if(getOneProduct != ""){

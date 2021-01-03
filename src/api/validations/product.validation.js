@@ -48,5 +48,10 @@ module.exports = {
     query: {
       id_product: Joi.string().required()
     },
+  },
+  GetAllProductPrice: {
+    query: {
+      product_price: Joi.number()
+    }
   }
 }

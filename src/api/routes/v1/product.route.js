@@ -5,7 +5,8 @@ const {
   CreateProduct,
   GetOneProduct,
   EditProduct,
-  RemoveProduct
+  RemoveProduct,
+  GetAllProductPrice
 } = require('../../validations/product.validation');
 
 const router = express.Router();
@@ -24,7 +25,7 @@ router.route('/GetAllProductNew')
 router.route('/GetAllProductIndex')
   .get(controller.GetAllProductIndex);
 router.route('/GetAllProductPrice')
-  .get(controller.GetAllProductPrice);
+  .get(validate(GetAllProductPrice),controller.GetAllProductPrice);
 router.route('/GetAllProductNew')
   .get(controller.GetAllProductNew);
 router.route('/GetAllProductPriceSale')
