@@ -34,4 +34,6 @@ router.route('/GetAllProductCategory')
   .get(controller.GetAllProductCategory);
 router.route('/SearchProduct')
   .get(controller.SearchProduct);
+router.route('/getAllProductCart')
+  .get(controller.getAllProductCart);
 module.exports = router;

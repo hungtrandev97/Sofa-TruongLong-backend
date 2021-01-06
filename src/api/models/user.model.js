@@ -41,7 +41,7 @@ const customerSchema = new mongoose.Schema({
     required: true,
   },
   numberPhone: {
-    type: Number,
+    type: String,
     required: true,
     trim: true
   },

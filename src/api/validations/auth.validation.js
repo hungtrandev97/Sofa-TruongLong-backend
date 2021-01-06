@@ -15,7 +15,7 @@ module.exports = {
         .required(),
       address: Joi.string()
         .required(),
-      numberPhone: Joi.number()
+      numberPhone: Joi.string()
         .required(),
       role: Joi.number()
     },
@@ -98,7 +98,7 @@ module.exports = {
         .required(),
       address: Joi.string()
         .required(),
-      numberPhone: Joi.number()
+      numberPhone: Joi.string()
         .required(),
       role: Joi.number().required(),
     },

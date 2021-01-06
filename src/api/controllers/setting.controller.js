@@ -53,7 +53,10 @@ exports.updatePoind = async (req, res, body) => {
       email="chua co thong tin",
       linkFB="chua co thong tin",
       numberPhoneZallo="chua co thong tin",
-      CountPoint = numbePoint
+      CountPoint = numbePoint,
+      support1="chưa co thong tin",
+      support2="chưa co thong tin",
+      support3="chưa co thong tin",
     ]
     const settingData = omit(settingDatas);
     if(findImage && findImage.length > 0) {

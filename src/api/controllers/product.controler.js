@@ -1,6 +1,8 @@
 const Product = require('../models/product.model');
 const Customer = require('../models/user.model');
 const Category = require('../models/category.model');
+const CartDetail = require('../models/cartDetail');
+const Cart = require('../models/cart.model');
 
 const { omit } = require('lodash');
 
@@ -197,6 +199,18 @@ exports.SearchProduct = async (req,res,next) => {
     const getProductSearch = await Product.find({product_title: {$regex: req.body.search,$options: 'i'}})
     .populate('_category', Category)
     .populate('_manager', Customer);
+    const lenghtData = getProductSearch.length
+    res.status(200);
+    return res.json({lenghtData: lenghtData ,data: getProductSearch });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+exports.getAllProductCart = async (req,res,next) => {
+  try {
+    const getProductSearch = await CartDetail.find({_product: req.query.id_product})
+    .populate('_cart', Cart);
     const lenghtData = getProductSearch.length
     res.status(200);
     return res.json({lenghtData: lenghtData ,data: getProductSearch });

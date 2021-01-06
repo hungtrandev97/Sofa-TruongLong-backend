@@ -13,13 +13,16 @@ const settingSchema = new mongoose.Schema({
   email: {type: String, match: /^\S+@\S+\.\S+$/},
   linkFB: {type: String},
   numberPhoneZallo: {type:String},
-  CountPoint: {type: Number, default: 1}
+  CountPoint: {type: Number, default: 1},
+  support1: {type: String},
+  support2: {type: String},
+  support3: {type: String},
 })
 
 settingSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['_id','imageSlider1', 'imageSlider1Url', 'imageSlider2', 'imageSlider2Url', 'imageSlider3','imageSlider3Url','address', 'numberPhone', 'numberPhone1', 'email', 'linkFB', 'numberPhoneZallo', 'CountPoint']
+    const fields = ['_id','imageSlider1', 'imageSlider1Url', 'imageSlider2', 'imageSlider2Url', 'imageSlider3','imageSlider3Url','address', 'numberPhone', 'numberPhone1', 'email', 'linkFB', 'numberPhoneZallo', 'CountPoint','support1','support2','support3']
     fields.forEach((field) => {
       transformed[field] = this[field];
     });

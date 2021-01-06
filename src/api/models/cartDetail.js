@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const cartDetailSchema = new mongoose.Schema({
   _product:{type:Schema.Types.ObjectId,ref:'Product',autopopulate: true},
-  _cart:{type:Schema.Types.ObjectId,ref:'Cart',autopopulate: true},
+  _cart:{type:mongoose.Schema.Types.ObjectId,ref:'Cart'},
   quantity: {
     type: Number,
     trim: true,

@@ -39,7 +39,9 @@ exports.getAllCartIdUser =async (req,res,next) => {
 
 exports.getAllCartDetail =async (req,res,next) => {
   try {
-    const cartDetail = await CartDetail.find({_cart: req.query.carDetail});
+    const cartDetail = await CartDetail.find({_cart: req.query.carDetail})
+    .populate('_product', Product)
+    .populate('_cart', Cart);;
     if(cartDetail){
       res.status(200);
       return res.json({ data: cartDetail });
@@ -56,7 +58,7 @@ exports.createCart = async (req, res, next) => {
   try {
     const year = new Date().getFullYear();
     const cartData = {
-      "_id_user": req.body._id_user,
+      "name": req.body.name,
       "address": req.body.address,
       "numberPhone": req.body.numberPhone,
       "totalMoney": req.body.totalMoney,
@@ -89,9 +91,7 @@ exports.createCart = async (req, res, next) => {
           statistical.forEach(async (items) => {
             if(items.year === year) {
               check = false;
-              console.log(items._id, 'itemcheck=============')
               let numberPoint = items.totalnumber += item.quantity;
-              console.log(numberPoint, 'numberPoint ======')
               await Statistical.findByIdAndUpdate({_id: items._id}, { "totalnumber": numberPoint});
             }
           })
