@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const cartSchema = new mongoose.Schema({
+  _id_user: {type:Schema.Types.ObjectId,ref:'Product',autopopulate: true},
   name: {
     type: String,
   },
@@ -33,7 +34,7 @@ const cartSchema = new mongoose.Schema({
 cartSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['_id','name', 'address', 'numberPhone', 'totalMoney', 'status','dateOder']
+    const fields = ['_id','_id_user','name', 'address', 'numberPhone', 'totalMoney', 'status','dateOder']
     fields.forEach((field) => {
       transformed[field] = this[field];
     });

@@ -196,7 +196,7 @@ exports.RemoveProduct = async (req, res, next) => {
 
 exports.SearchProduct = async (req,res,next) => {
   try {
-    const getProductSearch = await Product.find({product_title: {$regex: req.body.search,$options: 'i'}})
+    const getProductSearch = await Product.find({product_title: {$regex: req.query.search,$options: 'i'}})
     .populate('_category', Category)
     .populate('_manager', Customer);
     const lenghtData = getProductSearch.length

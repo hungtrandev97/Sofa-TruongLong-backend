@@ -58,6 +58,7 @@ exports.createCart = async (req, res, next) => {
   try {
     const year = new Date().getFullYear();
     const cartData = {
+      "_id_user": req.body._id_user,
       "name": req.body.name,
       "address": req.body.address,
       "numberPhone": req.body.numberPhone,

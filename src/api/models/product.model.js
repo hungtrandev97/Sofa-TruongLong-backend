@@ -37,12 +37,19 @@ const productSchema = new mongoose.Schema({
   product_gurantee: {type: String},
   product_donate: {type: String},
   product_index: {type: Number, default: 2},
+  kich_thuoc: {type: String},
+  chat_lieu: {type:String},
+  khung: {type:String},
+  nem: {type: String},
+  bao_hanh: {type:String},
+  khuyen_mai: {type:String},
+  giam_gia: {type: String}
 })
 
 productSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['_id','_category', '_manager', 'product_title', 'product_code', 'product_discript','product_imageMain','product_image', 'product_price', 'product_price_sale', 'product_date_added', 'product_quantity_order', 'product_new', 'product_inventory', 'product_gurantee', 'product_donate', 'product_index']
+    const fields = ['_id','_category', '_manager', 'product_title', 'product_code', 'product_discript','product_imageMain','product_image', 'product_price', 'product_price_sale', 'product_date_added','product_quantity_order', 'product_new', 'product_inventory', 'product_gurantee', 'product_donate', 'product_index', 'kich_thuoc', 'chat_lieu','khung','nem','bao_hanh','khuyen_mai','giam_gia']
     fields.forEach((field) => {
       transformed[field] = this[field];
     });
