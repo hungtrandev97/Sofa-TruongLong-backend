@@ -23,7 +23,6 @@ exports.getAllCart =async (req,res,next) => {
 
 exports.getAllCartIdUser =async (req,res,next) => {
   try {
-    console.log(req.query.idUser, 'req.query.idUser')
     const cart = await Cart.find({_id_user: req.query.idUser});
     if(cart){
       res.status(200);

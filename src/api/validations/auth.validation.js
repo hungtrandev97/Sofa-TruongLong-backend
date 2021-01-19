@@ -8,9 +8,9 @@ module.exports = {
         .required(),
       password: Joi.string()
         .required(),
-      email: Joi.string()
-        .email()
-        .required(),
+      // email: Joi.string()
+      //   .email()
+      //   .required(),
       gender: Joi.number()
         .required(),
       address: Joi.string()
@@ -61,9 +61,9 @@ module.exports = {
   // POST /v1/auth/password-reset
   passwordReset: {
     body: {
-      email: Joi.string()
-        .email()
-        .required(),
+      // email: Joi.string()
+      //   .email()
+      //   .required(),
       password: Joi.string()
         .required()
         .min(6)
@@ -91,9 +91,9 @@ module.exports = {
     body: {
       userName: Joi.string()
         .required(),
-      email: Joi.string()
-        .email()
-        .required(),
+      // email: Joi.string()
+      //   .email()
+      //   .required(),
       gender: Joi.number()
         .required(),
       address: Joi.string()
