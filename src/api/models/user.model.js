@@ -13,6 +13,7 @@ const customerSchema = new mongoose.Schema({
     required: true,
     trim: true,
     maxlength: 128,
+    unique: true,
     index: true
   },
   password: {
@@ -24,11 +25,7 @@ const customerSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    match: /^\S+@\S+\.\S+$/,
-    required: true,
-    unique: true,
-    trim: true,
-    lowercase: true
+    default: Date.now
   },
   gender: {
     type: Number,
@@ -61,7 +58,7 @@ const customerSchema = new mongoose.Schema({
     default: 2,
   },
 },{
-  timestamps: true,
+  timestamps: false,
 });
 
 customerSchema.pre('save', async function save(next) {
